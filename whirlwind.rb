@@ -152,3 +152,81 @@
 #     index += 1
 #   end
 # end
+
+
+# Bonus.b
+
+class Card
+  def initialize(trivia_data_sample)
+    @question = trivia_data_sample[0]
+    @answer = trivia_data_sample[1]
+  end
+
+  def question
+    @question
+  end
+
+  def answer
+    @answer
+  end
+end
+
+class Deck
+  def initialize(trivia_data)
+    @trivia_data = trivia_data.to_a
+  end
+
+  def remaining_cards
+    @trivia_data.length
+  end
+
+  def draw_card
+    @trivia_data.shuffle!
+    Card.new(@trivia_data.shift)
+  end
+end
+
+trivia_data = {
+  "What is the capital of Illinois?" => "Springfield",
+  "Is Africa a country or a continent?" => "Continent",
+  "Tug of war was once an Olympic event. True or false?" => "True",
+  "Multiple choice (type letter): Which of the following is a real prescription drug?\na. Perkelpazine\nb. Omeprazole\nc. Listepitrine\nd. Caltohira" => "b",
+  "Enter the name of this animal: \n ___            ___   \n/   \\          /   \\\n\\_   \\        /  __/\n _\\   \\      /  /__ \n \\___  \\____/   __/ \n     \\_       _/    \n       | @ @  \\_    \n       |            \n     _/     /\\      \n    /o)  (o/\\ \\_    \n    \\_____/ /       \n      \\____/        " => "moose"
+}
+
+deck = Deck.new(trivia_data) # deck is an instance of the Deck class
+
+puts "Do you want one chance to retry trivia questions that you get wrong? Enter 'Y' or 'N':"
+retry_triv = gets.chomp.downcase
+
+correct_count = 0
+incorrect_count = 0
+while deck.remaining_cards > 0
+  card = deck.draw_card # card is an instance of the Card class
+  puts
+  puts card.question
+  user_answer = gets.chomp
+  attempt = 1
+  while attempt <= 2
+    if user_answer.downcase == card.answer.downcase
+      puts
+      puts "Correct!"
+      correct_count += 1
+      break
+    elsif attempt == 1 && retry_triv == "y"
+      puts
+      puts "Incorrect! Try again:"
+      user_answer = gets.chomp
+      attempt +=1
+    else
+      puts
+      puts "Incorrect!"
+      incorrect_count += 1
+      break
+    end
+  end
+end
+
+score = 100 * correct_count / (correct_count + incorrect_count)
+puts
+puts "You got #{correct_count} questions right and #{incorrect_count} questions wrong! Your score: #{score}%"
