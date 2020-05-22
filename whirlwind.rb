@@ -55,13 +55,21 @@
 # users = []
 # index = 1
 
-# 5.times do
+# 2.times do
+#   puts
 #   puts "Enter person #{index}'s first name:"
 #   first_name = gets.chomp
+#   puts
 #   puts "Enter person #{index}'s last name:"
 #   last_name = gets.chomp
+#   puts
 #   puts "Enter person #{index}'s email:"
 #   email = gets.chomp
+#   while email.include?("@") == false || email.end_with?(".com") == false
+#     puts
+#     puts "Re-enter email. Make sure it includes an '@' and ends with '.com'."
+#     email = gets.chomp
+#   end
 #   user_hash = {first_name: first_name, last_name: last_name, email: email, account_num: rand(10 ** 10)}
 #   users << user_hash
 #   index +=1
@@ -120,5 +128,27 @@
 # end
 
 
-# Bonus
+# Bonus.a
 
+# puts
+# puts "Enter an account number to access user information:"
+# input_account = gets.chomp.to_i
+
+# index = 0
+# while index < users.length + 1
+#   if index == users.length
+#     puts
+#     puts "Account not found."
+#     break
+#   elsif input_account == users[index][:account_num]
+#     puts
+#     puts "USER #{index + 1}"
+#     puts "FIRST NAME: #{users[index][:first_name]}"
+#     puts "LAST NAME: #{users[index][:last_name]}"
+#     puts "EMAIL: #{users[index][:email]}"
+#     puts "ACCT #: #{users[index][:account_num]}"
+#     break
+#   else
+#     index += 1
+#   end
+# end
